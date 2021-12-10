@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "True A.I.D.S..py", line 18, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'map1.txt'
+Traceback (most recent call last):
+  File "True A.I.D.S..py", line 18, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'map1.txt'

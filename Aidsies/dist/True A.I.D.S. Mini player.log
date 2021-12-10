@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "True A.I.D.S. Mini player.py", line 469, in <module>
+  File "True A.I.D.S. Mini player.py", line 412, in main
+FileNotFoundError: No file 'soundFX/Hit_Hurt.wav' found in working directory 'C:\Users\martin\Desktop\ikijki\dist'.
