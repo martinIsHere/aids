@@ -27,20 +27,24 @@ def loadMap(path):
     maps.append(list(file.readline()))
     file.close()
 
+def loadMaps():
+    loadMap("map1.txt")
 
-loadMap("map1.txt")
+    loadMap("map2.txt")
 
-loadMap("map2.txt")
+    loadMap("map3.txt")
 
-loadMap("map3.txt")
+    loadMap("map4.txt")
 
-loadMap("map4.txt")
+    loadMap("map5.txt")
 
-loadMap("map5.txt")
+    loadMap("map6.txt")
 
-loadMap("map6.txt")
+    loadMap("map7.txt")
 
-loadMap("map7.txt")
+    loadMap("map8.txt")
+
+loadMaps()
 
 bMap = maps[current][:]
 
@@ -104,13 +108,14 @@ def getTile(x, y):
 def setTile(x, y, i):
     if x >= 0 and x < mapWidths[current] and y >= 0 and y < mapHeights[current]:
         maps[current][y * mapWidths[current] + x] = i
+    else:
+        return '0'
 
 def getTile2(x,y):
     if x >= 0 and x < xMapSize and y >= 0 and y < yMapSize:
         return maps[current][int(y/tileSize)*mapWidths[current]+int(x/tileSize)]
     else:
-        return 0
-
+        return '0'
 
 
 def drawMap():
@@ -384,8 +389,7 @@ def update():
             BG_playlist[(current%(len(BG_playlist)+1))-1].stop()
             BG_playlist[current%(len(BG_playlist)+1)].stop()
             BG_playlist[current%(len(BG_playlist)+1)].play(-1)
-            print(current%(len(BG_playlist)+1))
-            print(len(BG_playlist))
+            
             #Reset Player
             xNew, yNew = m2p(1, 0)
             coins=0
@@ -413,9 +417,9 @@ def load():
     black = (0,0,0)
     grey = (0,0,90)
     white = (10, 10, 120)
-    k = (20, 20, 240)
+    k = (20, 50, 80)
     n = (50,50,255)
-    colors = [black, grey, white, k, n, white, black]
+    colors = [black, grey, white, k, n, white, black, k]
     
     pygame.init()
     pygame.font.init()
@@ -424,23 +428,29 @@ def load():
     miniFont = pygame.font.Font("OpenSans-Light.ttf", 24)
     mFont = pygame.font.Font("OpenSans-Light.ttf", 48)
     scoreTex = mFont.render(str(coins)+"/" + str(MAX_COINS_ARRAY[current]), False, (255, 255, 0))
-    
+
     # init sounds
+
 
     global hurtSound
     hurtSound = pygame.mixer.Sound("soundFX/Hit_Hurt.wav")
+    hurtSound.set_volume(0.2)
 
     global pickupSound
     pickupSound = pygame.mixer.Sound("soundFX/Pickup_Coin.wav")
+    pickupSound.set_volume(0.2)
 
     global winSound
     winSound = pygame.mixer.Sound("soundFX/win.wav")
+    winSound.set_volume(0.2)
 
     global jumpSound
     jumpSound = pygame.mixer.Sound("soundFX/Jump.wav")
+    jumpSound.set_volume(0.2)
 
     global headButt
     headButt = pygame.mixer.Sound("soundFX/Head_Butt.wav")
+    
 
     global BG_playlist
 
@@ -450,9 +460,14 @@ def load():
                     pygame.mixer.Sound("soundFX/ThirdBGSong.wav"),
                     pygame.mixer.Sound("soundFX/SickLoopBGSong.wav"),
                     pygame.mixer.Sound("soundFX/MehBGSong.wav"),
-                    pygame.mixer.Sound("soundFX/MehBGSong.wav"),
-                    pygame.mixer.Sound("soundFX/FourthBGSong.wav")
+                    pygame.mixer.Sound("soundFX/FourthBGSong.wav"),
+                    pygame.mixer.Sound("soundFX/soundTrapBGSong.mp3")
                     ]
+    for sound in BG_playlist:
+        sound.set_volume(0.2)
+        
+    BG_playlist[7].set_volume(0.4)
+    
     BG_playlist[current%(len(BG_playlist)+1)].play(-1)
     
     pygame.key.set_repeat(10)
@@ -571,7 +586,8 @@ def menuState():
         if fps-frameDifference > 0:
             time.sleep(fps-frameDifference)
         pauseTimer(t0)
-    
+
+
 
 def resetGame():
     global startTime, trueStartTime
@@ -601,6 +617,9 @@ def resetGame():
     coins = 0
     coin = False
 
+    global BG_playlist
+    BG_playlist[current].stop()
+
     global bMap, maps, xMapSize, yMapSize, scoreTex, mFont
     
     mapWidths.clear()
@@ -609,19 +628,7 @@ def resetGame():
 
     current = 0
 
-    loadMap("map1.txt")
-
-    loadMap("map2.txt")
-
-    loadMap("map3.txt")
-
-    loadMap("map4.txt")
-
-    loadMap("map5.txt")
-
-    loadMap("map6.txt")
-
-    loadMap("map7.txt")
+    loadMaps()
 
     bMap = maps[current][:]
     
@@ -632,6 +639,8 @@ def resetGame():
 
     global vic
     vic = False
+
+    
 
     load()
 
