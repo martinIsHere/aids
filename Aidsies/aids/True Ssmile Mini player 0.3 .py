@@ -464,7 +464,7 @@ def load():
                     pygame.mixer.Sound("soundFX/soundTrapBGSong.mp3")
                     ]
     for sound in BG_playlist:
-        sound.set_volume(0.2)
+        sound.set_volume(0.1)
         
     BG_playlist[7].set_volume(0.4)
     
